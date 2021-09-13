@@ -62,3 +62,48 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+const songIds = []
+for(let song of player.songs)
+{
+    songIds.push(song.id)
+}
+
+function durationDisplay(duration)
+{
+  let newDuration = [Math.floor(duration/60) , duration%60];
+  if (newDuration[1] < 10)
+  {
+      newDuration[1] = "0" + newDuration[1].toString();
+  }
+  if (newDuration[0] < 10)
+  {
+      newDuration[0] = "0" + newDuration[0].toString();
+
+  }
+
+  return newDuration.join(":");
+
+}
+
+function playingSong(song)
+{
+    setTimeout(() => {endSong(songPlace)
+        
+    }, song.duration*30);
+    const div = document.getElementById(song.id)
+    const songPlace = player.songs.findIndex(i => i.id === song.id)
+    div.classList.add("active")
+    div.classList.remove("active")
+    
+    
+    
+    
+}
+
+function endSong(songIndex)
+{
+    if (songIndex < player.songs.length)
+        playingSong(player.songs[songIndex+1])
+    else
+        alert("YOU HAVE LISTEN TO ALL OF OUR SONGS")
+}

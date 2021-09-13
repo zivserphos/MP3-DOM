@@ -4,8 +4,15 @@
  *
  * @param {String} songId - the ID of the song to play
  */
-function playSong(songId) {
-    // Your code here
+function playSong(songId)
+{
+      const songTime = 0;
+      
+      const indexSong = player.songs.findIndex(i => i.id === songId)
+      const song = player.songs[indexSong]
+      const setDur = document.getElementById("songdur");
+      playingSong(song)
+
 }
 
 /**
@@ -14,12 +21,6 @@ function playSong(songId) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) 
 {
     let song = arguments[0];
-    /*let songId = document.createElement("div")
-    /* artist element 
-    let songTitle = document.createElement("div")
-    let songAlbum = document.createElement("div")
-    let songArtist = document.createElement("div")
-    let songDuration = docuoment.createElement("div")*/
     const idEl = createElement("div" , [ id])
     const titleEl = createElement("div" , [title])
     const albumEl = createElement("div" , [album])
@@ -27,9 +28,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt })
     const durationEl = createElement("div" , [duration])
     const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt})
     let children = ["id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , duration , CoverArtEl] 
-    classes = []
+    classes = ["songs"]
 
-    const attrs = { onclick: `playSong(${id})` }
+    const attrs = { onclick: `playSong(${id})` , id: song.id}
     return createElement("div", children, classes, attrs)
 }
 
@@ -84,3 +85,5 @@ for (let song of player.songs)
     console.log("dg")
     document.body.append(createSongElement(song))
 }
+
+console.log(songIds)
