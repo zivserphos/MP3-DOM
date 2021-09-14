@@ -7,12 +7,17 @@
 function playSong(songId)
 {
       const songTime = 0;
-      
       const indexSong = player.songs.findIndex(i => i.id === songId)
       const song = player.songs[indexSong]
       const setDur = document.getElementById("songdur");
-      playingSong(song)
+      playingSong(song , indexSong)
 
+}
+
+function displaySong(song)
+{
+    let songdisplay = "YOU ARE LISTENING TO: " + song.title + " from " + song.album + " by " + song.artist + " | " + durationDisplay(song.duration) + "."
+    return songdisplay
 }
 
 /**
@@ -25,9 +30,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt })
     const titleEl = createElement("div" , [title])
     const albumEl = createElement("div" , [album])
     const artistEl = createElement("div" , [artist])
-    const durationEl = createElement("div" , [duration])
     const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt})
-    let children = ["id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , duration , CoverArtEl] 
+    const durationEl = createElement("div" , [duration])
+    let children = ["id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl] 
     classes = ["songs"]
 
     const attrs = { onclick: `playSong(${id})` , id: song.id}

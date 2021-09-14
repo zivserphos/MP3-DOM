@@ -68,6 +68,7 @@ for(let song of player.songs)
     songIds.push(song.id)
 }
 
+
 function durationDisplay(duration)
 {
   let newDuration = [Math.floor(duration/60) , duration%60];
@@ -85,25 +86,31 @@ function durationDisplay(duration)
 
 }
 
-function playingSong(song)
+function playingSong(song , indexSong)
 {
-    setTimeout(() => {endSong(songPlace)
+    let timeS = 0;
+    setTimeout(() => {timeS+=1; console.log(timeS)}, 1000)
+    const songPlaying = document.getElementById(song.id)
+    songPlaying.classList.add("active")
+    songPlaying.append(createElement("span" , [displaySong(song)] , ["liveSong"] , {}))
+    setTimeout(() => {endSong(songPlaying , indexSong)
         
     }, song.duration*30);
-    const div = document.getElementById(song.id)
-    const songPlace = player.songs.findIndex(i => i.id === song.id)
-    div.classList.add("active")
-    div.classList.remove("active")
     
     
     
     
 }
 
-function endSong(songIndex)
+function endSong(songPlaying , indexSong)
 {
-    if (songIndex < player.songs.length)
-        playingSong(player.songs[songIndex+1])
-    else
+    if (indexSong < player.songs.length)
+    {
+        songPlaying.classList.remove("active")
+        playingSong(player.songs[indexSong+1] , indexSong+1)
+    }
+    if (indexSong === player.songs[songs.length-1])
         alert("YOU HAVE LISTEN TO ALL OF OUR SONGS")
 }
+
+

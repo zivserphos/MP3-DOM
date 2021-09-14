@@ -4,6 +4,7 @@
     height: 100px;
     width: 100px;
     margin: 30px;
+    margin-left: -50px;
 }
 *
 {
@@ -27,5 +28,13 @@
 
 .active
 {
-    background-color: green;
+    border-radius: 100%;
+}
+
+.liveSong
+{
+    text-align: right;
+    position: absolute;
+    width: 200px;
+    height: 200px;
 }
