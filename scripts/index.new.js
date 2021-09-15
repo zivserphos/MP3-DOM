@@ -135,7 +135,11 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
      const artistEl = createElement("div" , [artist])
      const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt , id: "img" + id})
      const durationEl = createElement("div" , [duration])
-     let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl] 
+     const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {data: "action"})
+     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {})
+     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
+     const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
+     let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
      classes = ["songs"]
  
      const attrs = { onclick: `playSong(${id})` , id: song.id}
@@ -251,7 +255,7 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     time+=1;
  }
 
- function createRunSongButtons(div)
+ /*function createRunSongButtons(div)
  {
     
     const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {data: "action"})
@@ -261,10 +265,9 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     }
     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {})
     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
-    const showTime = createElement("span" , ["00:00"] , [] , {id: "RunSong" + div.id})
     const buttons = createElement("span" , [showTime, buttonStr , buttonStp ,buttonRes] , [] , {})
     div.append(buttons)
- }
+ }*/
 
  document.querySelectorAll(".songs").forEach(element => {
      createRunSongButtons(element)
