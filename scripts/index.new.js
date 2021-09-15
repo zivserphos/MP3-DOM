@@ -155,12 +155,17 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
 
  function confirmRemove(event)
  {
-     const sure = confirm("ARE YOU SURE YOU WANT TO DELETE THAT SONG")
-     if (sure)
+     if(event.target.classList.contains("remove-button"))
      {
-        const toRemove = document.getElementById(event.target.closest("div").id)
-        toRemove.remove()
+        const sure = confirm("ARE YOU SURE YOU WANT TO DELETE THAT SONG")
+        if (sure)
+        {
+            const toRemove = document.getElementById(event.target.closest("div").id)
+            console.log(event.currentTarget , event.target)
+            toRemove.remove()
+        }
      }
+
 }
  
  /**
