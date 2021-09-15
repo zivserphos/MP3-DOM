@@ -231,24 +231,22 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  }
  )
 
- function runSong(duration)
+ function runSong(id)
  {
-     let seconds = 0;
-     let tens =0;
-     while (duration > 0 )
-     {
-         if (seconds < 9)
-     }
+     t = document.getElementById(id)
+     t.textContent = durationDisplay(time)
+     time+=1;
  }
 
  function createRunSongButtons(div)
  {
+    
     const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {})
     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {})
     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
+    const t = createElement("span" , [0] , [] , {id: "RunSong" + div.id})
 
-
-    const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
+    const buttons = createElement("span" , [t, buttonStr , buttonStp ,buttonRes] , [] , {})
     div.append(buttons)
  }
 
@@ -268,4 +266,12 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  });
 
  console.log(player.songs[2].duration)
-
+document.addEventListener("click" , function(event) 
+{
+    if(event.target.id.includes("RunSong"))
+    {
+        
+    }
+}
+)
+let time =0;
