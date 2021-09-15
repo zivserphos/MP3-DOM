@@ -13,9 +13,6 @@ function playSong(songId) {
  *
  * @param {Number} songId - the ID of the song to remove
  */
-function removeSong(songId) {
-    // Your code here
-}
 
 /**
  * Adds a song to the player, and updates the DOM to match.
@@ -131,13 +128,14 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  function createSongElement({ id, title, album, artist, duration, coverArt }) 
  {
      let song = arguments[0];
+     const button = createElement("span" , ["[X]"] , ["remove-button"] , {onclick: "confirmRemove(event)"})
      const idEl = createElement("div" , [ id])
      const titleEl = createElement("div" , [title])
      const albumEl = createElement("div" , [album])
      const artistEl = createElement("div" , [artist])
      const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt , id: "img" + id})
      const durationEl = createElement("div" , [duration])
-     let children = ["id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl] 
+     let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl] 
      classes = ["songs"]
  
      const attrs = { onclick: `playSong(${id})` , id: song.id}
@@ -154,6 +152,16 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
      const attrs = {}
      return createElement("div", children, classes, attrs)
  }
+
+ function confirmRemove(event)
+ {
+     const sure = confirm("ARE YOU SURE YOU WANT TO DELETE THAT SONG")
+     if (sure)
+     {
+        const toRemove = document.getElementById(event.target.closest("div").id)
+        toRemove.remove()
+     }
+}
  
  /**
   * Creates a new DOM element.
@@ -233,45 +241,30 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
 
  function runSong(id)
  {
-     t = document.getElementById(id)
-     t.textContent = durationDisplay(time)
-     time+=1;
+    const currentTime = document.getElementById(id)
+    currentTime.textContent = durationDisplay(time)
+    time+=1;
  }
 
  function createRunSongButtons(div)
  {
     
-    const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {})
+    const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {data: "action"})
+    buttonStr.onclick = function (e)
+    {
+        setInterval(function() {runSong("RunSong" + div.id)} , 1000);
+    }
     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {})
     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
-    const t = createElement("span" , [0] , [] , {id: "RunSong" + div.id})
-
-    const buttons = createElement("span" , [t, buttonStr , buttonStp ,buttonRes] , [] , {})
+    const showTime = createElement("span" , ["00:00"] , [] , {id: "RunSong" + div.id})
+    const buttons = createElement("span" , [showTime, buttonStr , buttonStp ,buttonRes] , [] , {})
     div.append(buttons)
  }
 
  document.querySelectorAll(".songs").forEach(element => {
      createRunSongButtons(element)
-     /*const seoncdRow = createElement("div")
-     if (songIds.indexOf(Number(element.id)) < (songIds.length)/2)
-     {
-         element.classList.add("firstSongGroup")
-         console.log(songIds.indexOf(element.id) , element.id)
-
-     }
-     else
-     {
-        element.classList.add("firstSongGroup")
-     }*/
  });
 
  console.log(player.songs[2].duration)
-document.addEventListener("click" , function(event) 
-{
-    if(event.target.id.includes("RunSong"))
-    {
-        
-    }
-}
-)
-let time =0;
+
+let time=0;

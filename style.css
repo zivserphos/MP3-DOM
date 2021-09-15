@@ -53,6 +53,7 @@
 
 .songButton
 {
+    cursor: pointer;
     width: 75px;
     height: 20px;
     background: green;
@@ -61,4 +62,20 @@
     border-radius: 5px;
     margin-right: 5px;
     outline: none;
+}
+
+.remove-button 
+{
+    text-align: center;
+    position: relative;
+    font-size: 110%;
+    top: 0;
+    color: darkred;
+    left: 0px;
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
