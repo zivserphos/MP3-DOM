@@ -173,7 +173,6 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
      
      for (let child of children)
      {
-         console.log(child)
          el.append(child)
      }
  
@@ -192,11 +191,10 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  // You can write more code below this line
  for (let song of player.songs)
  {
-     console.log("dg")
+     
      document.body.append(createSongElement(song))
  }
  
- console.log(songIds)
  
  document.addEventListener("mouseover" , function(event)
  {
@@ -211,11 +209,63 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  
  document.addEventListener("mouseout" , function(event)
  {
-     if(event.target.matches("img"))
+    const targetTag = event.target
+     if(targetTag.matches("img"))
      {
-         const targetTag = event.target
          targetTag.style.width = "100px";
          targetTag.style.border = "0";
      }
+     
+     
  }
  )
+
+ document.addEventListener("click" , function (event) 
+ {
+    let x=0;
+    const targetTag = event.target
+    if(targetTag.matches("img"))
+    {
+        targetTag.closest("div").append(setTimeout(runSong(targetTag.closest("div"))  , 1000));
+    }
+ }
+ )
+
+ function runSong(duration)
+ {
+     let seconds = 0;
+     let tens =0;
+     while (duration > 0 )
+     {
+         if (seconds < 9)
+     }
+ }
+
+ function createRunSongButtons(div)
+ {
+    const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {})
+    const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {})
+    const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
+
+
+    const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
+    div.append(buttons)
+ }
+
+ document.querySelectorAll(".songs").forEach(element => {
+     createRunSongButtons(element)
+     /*const seoncdRow = createElement("div")
+     if (songIds.indexOf(Number(element.id)) < (songIds.length)/2)
+     {
+         element.classList.add("firstSongGroup")
+         console.log(songIds.indexOf(element.id) , element.id)
+
+     }
+     else
+     {
+        element.classList.add("firstSongGroup")
+     }*/
+ });
+
+ console.log(player.songs[2].duration)
+

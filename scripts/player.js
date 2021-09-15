@@ -88,11 +88,9 @@ function durationDisplay(duration)
 
 function playingSong(song , indexSong)
 {
-    let timeS = 0;
-    setTimeout(() => {timeS+=1; console.log(timeS)}, 1000)
     const songPlaying = document.getElementById(song.id)
     songPlaying.classList.add("active")
-    songPlaying.append(createElement("span" , [displaySong(song)] , ["liveSong"] , {}))
+    songPlaying.append(createElement("span" , [] , [] , {}))
     setTimeout(() => {endSong(songPlaying , indexSong)
         
     }, song.duration*30);
@@ -101,6 +99,8 @@ function playingSong(song , indexSong)
     
     
 }
+
+
 
 function endSong(songPlaying , indexSong)
 {
