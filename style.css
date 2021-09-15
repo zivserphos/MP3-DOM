@@ -4,8 +4,10 @@
     height: 100px;
     width: 100px;
     margin: 30px;
-    margin-left: -50px;
+    cursor: pointer;
+    
 }
+
 *
 {
     background-color: aqua;
@@ -13,6 +15,7 @@
 
 .songs
 {
+    display: table-cell;
     text-align: center;
     border-style: solid;
     border-radius: 20px;
@@ -33,7 +36,7 @@
 
 .liveSong
 {
-    text-align: right;
+    right: 0px;
     position: absolute;
     width: 200px;
     height: 200px;

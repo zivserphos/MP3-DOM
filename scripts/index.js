@@ -30,7 +30,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt })
     const titleEl = createElement("div" , [title])
     const albumEl = createElement("div" , [album])
     const artistEl = createElement("div" , [artist])
-    const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt})
+    const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt , id: "img" + id})
     const durationEl = createElement("div" , [duration])
     let children = ["id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl] 
     classes = ["songs"]
@@ -92,3 +92,25 @@ for (let song of player.songs)
 }
 
 console.log(songIds)
+
+document.addEventListener("mouseover" , function(event)
+{
+    if(event.target.matches("img"))
+    {
+        const targetTag = event.target
+        targetTag.style.width = "120px";
+        targetTag.style.border = "5px solid green";
+    }
+}
+)
+
+document.addEventListener("mouseout" , function(event)
+{
+    if(event.target.matches("img"))
+    {
+        const targetTag = event.target
+        targetTag.style.width = "100px";
+        targetTag.style.border = "0";
+    }
+}
+)
