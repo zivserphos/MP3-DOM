@@ -28,7 +28,7 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+     
 }
 
 /**
@@ -127,23 +127,25 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
   */
  function createSongElement({ id, title, album, artist, duration, coverArt }) 
  {
+     const songs = document.getElementById("songs")
      let song = arguments[0];
+     const timepass = "00:00"
      const button = createElement("span" , ["[X]"] , ["remove-button"] , {onclick: "confirmRemove(event)"})
      const idEl = createElement("div" , [ id])
      const titleEl = createElement("div" , [title])
      const albumEl = createElement("div" , [album])
      const artistEl = createElement("div" , [artist])
      const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt , id: "img" + id})
-     const durationEl = createElement("div" , [duration])
-     const buttonStr  = createElement("button" , ["start"] , ["songButton"] , {data: "action"})
-     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {})
-     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
+     const durationEl = createElement("div" , [durationDisplay(duration)])
+     const buttonStr  = createElement("button" , ["start"] , ["songButton" , id] , {onclick: "confirmRemove(event)" , value: duration})
+     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {onclick: "confirmRemove(event)"})
+     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {onclick: "confirmRemove(event)"})
      const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
-     let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationDisplay(duration) , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
-     classes = ["songs"]
+     let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
+     classes = ["song"]
  
      const attrs = { onclick: `playSong(${id})` , id: song.id}
-     return createElement("div", children, classes, attrs)
+     songs.append(createElement("div", children, classes, attrs))
  }
  
  /**
@@ -159,19 +161,32 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
 
  function confirmRemove(event)
  {
-     if(event.target.classList.contains("remove-button"))
+     const targetTag = event.target
+     if(targetTag.classList.contains("remove-button"))
      {
         const sure = confirm("ARE YOU SURE YOU WANT TO DELETE THAT SONG")
         if (sure)
         {
-            const toRemove = document.getElementById(event.target.closest("div").id)
-            console.log(event.currentTarget , event.target)
+            const toRemove = document.getElementById(targetTag.closest("div").id)
             toRemove.remove()
         }
      }
+     else if (targetTag.classList.contains("songButton"))
+     {
+        console.log(targetTag)
+        if(targetTag.textContent === "start")
+            {
+                targetTag.textContent = "00:00"
+                targetTag.style.backgroundColor = "red"
+                const durationSong = targetTag.closest("div");
+                console.log(targetTag)
+                setInterval(function() {runSong(targetTag)} , 1000);
+            }
+     }
+     console.log(targetTag)
 
 }
- 
+
  /**
   * Creates a new DOM element.
   *
@@ -248,11 +263,20 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  }
  )
 
- function runSong(id)
+ function runSong(tag)
  {
-    const currentTime = document.getElementById(id)
+    const currentTime = tag
     currentTime.textContent = durationDisplay(time)
-    time+=1;
+    if (time < tag.value)
+    {
+        time+=1;
+    }
+    else
+    {
+        alert("songFinished")   
+    }
+
+    //if (time = )
  }
 
  /*function createRunSongButtons(div)
@@ -267,12 +291,10 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {})
     const buttons = createElement("span" , [showTime, buttonStr , buttonStp ,buttonRes] , [] , {})
     div.append(buttons)
- }*/
+ }
 
  document.querySelectorAll(".songs").forEach(element => {
      createRunSongButtons(element)
- });
-
- console.log(player.songs[2].duration)
-
-let time=0;
+ });*/
+ let time=150;
+ document.getElementById("songs").classList.add("songList")

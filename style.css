@@ -13,7 +13,11 @@
     background-color: aqua;
 }
 
-.songs
+.songList
+{
+    
+}
+.song
 {
     display: table-cell;
     text-align: center;
@@ -40,7 +44,7 @@
 
 .active
 {
-    border-radius: 100%;
+    
 }
 
 .liveSong
