@@ -11,17 +11,19 @@
     </head>
     <body>
         <h1>Awesome Player!!!</h1>
-        <div id="add-section">
-            <h2>Add a new song</h2>
-            <div id="inputs">
-                <input name="title" placeholder="Title">
-                <input name="album" placeholder="Album">
-                <input name="artist" placeholder="Artist">
-                <input name="duration" placeholder="Duration (mm:ss)">
-                <input name="cover-art" placeholder="Cover art link">
-            </div>
-            <button id="add-button">Add</button>
-        </div>
+            <form>
+                <div id="add-section">
+                    <h2>Add a new song</h2>
+                    <div id="inputs">
+                        <input name="title" placeholder="Title" id = "userInput" , required>
+                        <input name="album" placeholder="Album" required>
+                        <input name="artist" placeholder="Artist" required>
+                        <input name="duration" placeholder="Duration (mm:ss)" required>
+                        <input name="cover-art" placeholder="Cover art link" required>
+                    </div>
+                <button id="add-button" click="fddf">Add</button>
+                </div>
+            </form>
         <div id="songs">
             <h2>Songs</h2>
             <div class="list">
