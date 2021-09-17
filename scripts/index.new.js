@@ -161,7 +161,7 @@ function handleAddSongEvent(event)
      let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
      classes = ["song"]
      const attrs = {id: song.id}
-     songs.append(createElement("div", children, classes, attrs , {songHandle}))
+     songs.append(createElement("div", children, classes, attrs))
      songs.addEventListener("click" , songHandle)
  }
 
@@ -288,7 +288,7 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
         tm = setInterval(function() {runSong(newTag)} , 1000)
     }
  }
- let time=0;
+
  document.getElementById("songs").classList.add("songList")
 
  

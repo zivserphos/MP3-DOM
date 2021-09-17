@@ -13,18 +13,26 @@
     background-color: aqua;
 }
 
+#songs
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
 .song
 {
     display: table-cell;
-    text-align: center;
+    text-align: center; 
     border-style: solid;
     border-radius: 20px;
-    margin-bottom: 40px;
+    width: 22%;
+    /* margin-bottom: 40px;
     margin-left: 30%;
     margin-right: 30%;
     padding-bottom: 20px;
     padding-top: 20px;
-    box-shadow: 5px 10px;
+    box-shadow: 5px 10px; */
     
 
 }
@@ -64,9 +72,9 @@
     text-align: center;
     position: relative;
     font-size: 110%;
-    top: 0;
+    top: 5px;
+    left: 3px;
     color: darkred;
-    left: 0px;
     display: block;
     width: 24px;
     height: 24px;
