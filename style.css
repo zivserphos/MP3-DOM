@@ -36,6 +36,8 @@
     
 
 }
+
+
 .firstSongGroup
 {
     display: table-cell;
@@ -75,10 +77,23 @@
     top: 5px;
     left: 3px;
     color: darkred;
+    transition: 30s;
     display: block;
     width: 24px;
     height: 24px;
     border: none;
     background: transparent;
     cursor: pointer;
+    transition: 0.4s;
+}
+
+.remove-button:hover
+{
+    background-color: green;
+}
+
+.duration
+{
+    display: inline;
+    font-weight: bold;
 }

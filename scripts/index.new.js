@@ -48,7 +48,7 @@ function addSong({ title, album, artist, duration, coverArt }) {
             {
                 clearInterval(tm)
                 if (targetTag.textContent === "start")
-                {
+                {   
                     targetTag.textContent = "00:00"
                     time =0;
                 }
@@ -148,19 +148,22 @@ function handleAddSongEvent(event)
      let song = arguments[0];
      const timepass = "00:00"
      const button = createElement("span" , ["[X]"] , ["remove-button"] , {})
-     const idEl = createElement("div" , [id])
-     const titleEl = createElement("div" , [title])
-     const albumEl = createElement("div" , [album])
-     const artistEl = createElement("div" , [artist])
+     const idEl = createElement("div" , ["id :", id])
+     const titleEl = createElement("div" , ["title: " ,title])
+     const albumEl = createElement("div" , ["album: " ,album] , ["album"])
+     const artistEl = createElement("div" , ["artist: " ,artist])
      const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt , id: "img" + id})
-     const durationEl = createElement("div" , [durationDisplay(duration)])
+     const durationEl = createElement("div" , [durationDisplay(duration)] , ["duration"] ,{})
+     pickColor(durationEl , duration)
      const buttonStr  = createElement("button" , ["start"] , ["songButton" , id] , { id: "Start" + id, value: duration})
      const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {id: "Stop" + id})
      const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {id: "Reset" + id})
      const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
-     let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
+     let children = [button , idEl , titleEl ,  albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
      classes = ["song"]
      const attrs = {id: song.id}
+     const newDiv = createElement("div" , children , classes , attrs)
+     
      songs.append(createElement("div", children, classes, attrs))
      songs.addEventListener("click" , songHandle)
  }
@@ -292,4 +295,18 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  document.getElementById("songs").classList.add("songList")
 
  
- 
+ function pickColor(durationEl , duration)
+    {
+        if (duration < 120)
+        {
+            durationEl.backgroundColor = "green"
+        }
+        if (duration > 120 && duration < 420) 
+        {
+            durationEl.style.backgroundColor = "rgb(" + 256/300*(duration-120) + "," + 256/300*(420-duration) + ",0)"
+        }
+        if (duration >= 420)
+        {
+            durationEl.style.backgroundColor = "red"
+        }
+    }
