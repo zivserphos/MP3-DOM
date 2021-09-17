@@ -116,3 +116,14 @@ function endSong(songPlaying , indexSong)
         alert("YOU HAVE LISTEN TO ALL OF OUR SONGS")
 }
 
+function generteNewId()
+{
+    let newId =100;
+    while (songIds.indexOf(newId) !== -1)
+    {
+        newId++;       
+    }
+    songIds.push(newId)
+    console.log(songIds)
+    return newId
+}

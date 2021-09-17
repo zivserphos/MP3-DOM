@@ -61,8 +61,11 @@ function addSong({ title, album, artist, duration, coverArt }) {
         else if (targetTag.textContent === "reset")
         {
             time=0;
-            const startId = "Start" + targetTag.id.split("Stop")[1]
+            const startId = "Start" + targetTag.id.split("Reset")[1]
             const newTag = document.getElementById(startId)
+            newTag.style.backgroundColor = "green"
+            newTag.textContent = "start"
+            clearInterval(tm)
         }
     }
 }
@@ -83,11 +86,6 @@ function addSong({ title, album, artist, duration, coverArt }) {
  
  
  // You can write more code below this line
- for (let song of player.songs)
- {
-     document.body.append(createSongElement(song))
- }
- 
  
  document.addEventListener("mouseover" , function(event)
  {
@@ -113,13 +111,18 @@ function addSong({ title, album, artist, duration, coverArt }) {
  }
  )
 
-/**
- * Handles a click event on the button that adds songs.
- *
- * @param {MouseEvent} event - the click event
- */
-function handleAddSongEvent(event) {
-    // Your code here
+function handleAddSongEvent(event)
+{
+    event.preventDefault()
+    const title = document.getElementById("title").value
+    const album = document.getElementById("album").value
+    const artist = document.getElementsByName("artist").value
+    const duration =document.getElementById("duration").value
+    const coverArt = document.getElementById("cover-art").value
+    const id = generteNewId()
+    const newSong = {id: id , title: title , album: album , artist: artist , duration: duration, coverArt: coverArt}
+    player.songs.push(newSong)
+    createSongElement(newSong)
 }
 
 /**
@@ -130,22 +133,22 @@ function handleAddSongEvent(event) {
      const songs = document.getElementById("songs")
      let song = arguments[0];
      const timepass = "00:00"
-     const button = createElement("span" , ["[X]"] , ["remove-button"] , {onclick: "songHandle(event)"})
-     const idEl = createElement("div" , [ id])
+     const button = createElement("span" , ["[X]"] , ["remove-button"] , {})
+     const idEl = createElement("div" , [id])
      const titleEl = createElement("div" , [title])
      const albumEl = createElement("div" , [album])
      const artistEl = createElement("div" , [artist])
      const CoverArtEl = createElement("img" , [] ,["coverImg"] , {src: coverArt , id: "img" + id})
      const durationEl = createElement("div" , [durationDisplay(duration)])
-     const buttonStr  = createElement("button" , ["start"] , ["songButton" , id] , {onclick: "songHandle(event)" , id: "Start" + id, value: duration})
-     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {onclick: "songHandle(event)" , id: "Stop" + id})
-     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {onclick: "songHandle(event)", id: "Reset" + id})
+     const buttonStr  = createElement("button" , ["start"] , ["songButton" , id] , { id: "Start" + id, value: duration})
+     const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {id: "Stop" + id})
+     const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {id: "Reset" + id})
      const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
      let children = [button , "id :" , idEl , "title: " , titleEl , "album: " , albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
      classes = ["song"]
- 
      const attrs = {id: song.id}
-     songs.append(createElement("div", children, classes, attrs))
+     songs.append(createElement("div", children, classes, attrs , {songHandle}))
+     songs.addEventListener("click" , songHandle)
  }
 
 /**
@@ -177,6 +180,7 @@ generatePlaylists()
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
 
+
 /**
  * Plays a song from the player.
  * Playing a song means changing the visual indication of the currently playing song.
@@ -184,7 +188,7 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  * @param {String} songId - the ID of the song to play
  */
  
- function createElement(tagName, children = [], classes = [], attributes = {}) 
+ function createElement(tagName, children = [], classes = [], attributes = {} , eventListeners = {}) 
  {
      let el = document.createElement(tagName);
      
@@ -222,7 +226,7 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
  for (let song of player.songs)
  {
      
-     document.body.append(createSongElement(song))
+    createSongElement(song)
  }
  
  
@@ -258,10 +262,16 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     }
     else
     {
-        alert("songFinished")   
+        alert("songFinished")
+        time =0;
+        tag.style.backgroundColor = "green"
+        tag.textContent = "start"
+        clearInterval(tm)
+        const songPlace = songIds.indexOf(Number(tag.id.split("Start")[1]))
+        tm = setInterval(function() {runSong(document.getElementById("Start" + songIds[songPlace+1]))} , 1000)
     }
  }
- let time=150;
+ let time=157;
  document.getElementById("songs").classList.add("songList")
 
  

@@ -13,10 +13,6 @@
     background-color: aqua;
 }
 
-.songList
-{
-    
-}
 .song
 {
     display: table-cell;
@@ -40,11 +36,6 @@
 .secondSongGroup
 {
     display: table-cell;
-}
-
-.active
-{
-    
 }
 
 .liveSong
