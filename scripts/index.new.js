@@ -131,7 +131,7 @@ function handleAddSongEvent(event)
     const title = document.getElementById("title").value
     const album = document.getElementById("album").value
     const artist = document.getElementsByName("artist").value
-    const duration =document.getElementById("duration").value
+    const duration = fromDisplayToNum(document.getElementById("duration").value)
     const coverArt = document.getElementById("cover-art").value
     const id = generteNewId()
     const newSong = {id: id , title: title , album: album , artist: artist , duration: duration, coverArt: coverArt}
