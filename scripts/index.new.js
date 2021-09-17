@@ -4,10 +4,12 @@
  *
  * @param {Number} songId - the ID of the song to play
  */
+
 function playSong(songId) {
     // Your code here
 }
 let tm;
+let songIsRun;
 /**
  * Removes a song from the player, and updates the DOM to match.
  *
@@ -44,21 +46,33 @@ function addSong({ title, album, artist, duration, coverArt }) {
      {
         if(targetTag.id.includes("Start"))
             {
-                targetTag.textContent = "00:00"
+                clearInterval(tm)
+                if (targetTag.textContent === "start")
+                {
+                    targetTag.textContent = "00:00"
+                    time =0;
+                }
+                else
+                {
+                    time = fromDisplayToNum(targetTag.textContent)
+                }
                 targetTag.style.backgroundColor = "red"
                 const durationSong = targetTag.closest("div");
+                songIsRun = targetTag.id.split("Start")[1];
+                
                 tm = setInterval(function() {runSong(targetTag)} , 1000);
                 
             }
-        else if (targetTag.textContent === "stop")
+        else if (targetTag.textContent === "stop" && targetTag.id.split("Stop")[1] === songIsRun)
         {
+            
             const startId = "Start" + targetTag.id.split("Stop")[1]
             const newTag = document.getElementById(startId)
             
             
             clearInterval(tm)
         }
-        else if (targetTag.textContent === "reset")
+        else if (targetTag.textContent === "reset" )
         {
             time=0;
             const startId = "Start" + targetTag.id.split("Reset")[1]
@@ -259,6 +273,7 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     if (time < tag.value)
     {
         time+=1;
+        console.log(time)
     }
     else
     {
@@ -268,10 +283,12 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
         tag.textContent = "start"
         clearInterval(tm)
         const songPlace = songIds.indexOf(Number(tag.id.split("Start")[1]))
-        tm = setInterval(function() {runSong(document.getElementById("Start" + songIds[songPlace+1]))} , 1000)
+        const newTag = document.getElementById("Start" + songIds[songPlace+1])
+        newTag.style.backgroundColor = "red"
+        tm = setInterval(function() {runSong(newTag)} , 1000)
     }
  }
- let time=157;
+ let time=0;
  document.getElementById("songs").classList.add("songList")
 
  

@@ -127,3 +127,15 @@ function generteNewId()
     console.log(songIds)
     return newId
 }
+
+function fromDisplayToNum(str)
+{
+    if (str === "start")
+    {
+        return 0;
+    }
+    str = str.split(":")
+    console.log(str)
+    return(Number(str[0])*60 + Number(str[1]))
+}
+
