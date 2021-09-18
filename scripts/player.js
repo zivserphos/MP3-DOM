@@ -7,6 +7,7 @@ const player = {
             artist: "Jinjer",
             duration: 242,
             coverArt: "./images/cover_art/jinjer_vortex.jpg",
+            audio: "./audios/shiroyama.mp3"
         },
         {
             id: 2,
@@ -15,6 +16,7 @@ const player = {
             artist: "Songleikr",
             duration: 160,
             coverArt: "./images/cover_art/songleikr_vinda.jpg",
+            audio: "./audios/Vinda.mp3"
         },
         {
             id: 7,
@@ -23,6 +25,7 @@ const player = {
             artist: "Sabaton",
             duration: 213,
             coverArt: "./images/cover_art/sabaton_shiroyama.jpg",
+            audio: "./audios/shiroyama.mp3"
         },
         {
             id: 3,
@@ -31,6 +34,7 @@ const player = {
             artist: "AC/DC",
             duration: 292,
             coverArt: "./images/cover_art/acdc_thunderstruck.jpg",
+            audio: "./audios/shiroyama.mp3"
         },
         {
             id: 4,
@@ -39,6 +43,7 @@ const player = {
             artist: "Orphaned Land",
             duration: 270,
             coverArt: "./images/cover_art/orphaned_land_all_is_one.jpg",
+            audio: "./audios/allIsOne.mp3"
         },
         {
             id: 5,
@@ -47,6 +52,7 @@ const player = {
             artist: "Full Trunk",
             duration: 259,
             coverArt: "./images/cover_art/full_trunk_as_a_stone.jpg",
+            audio: "./audios/asAStone.mp3"
         },
         {
             id: 6,
@@ -55,10 +61,112 @@ const player = {
             artist: "Wintersun",
             duration: 811,
             coverArt: "./images/cover_art/wintersun_sons_of_winter_and_stars.jpg",
+            audio: "./audios/sonsOf.mp3"
         },
     ],
     playlists: [
         { id: 1, name: "Metal", songs: [1, 7, 4, 6] },
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
+}
+const songIds = []
+for(let song of player.songs)
+{
+    songIds.push(song.id)
+}
+
+
+function durationDisplay(duration)
+{
+  let newDuration = [Math.floor(duration/60) , duration%60];
+  if (newDuration[1] < 10)
+  {
+      newDuration[1] = "0" + newDuration[1].toString();
+  }
+  if (newDuration[0] < 10)
+  {
+      newDuration[0] = "0" + newDuration[0].toString();
+
+  }
+
+  return newDuration.join(":");
+
+}
+
+function playingSong(song , indexSong)
+{
+    const songPlaying = document.getElementById(song.id)
+    if (songPlaying != null)
+    {
+        songPlaying.classList.add("active")
+        songPlaying.append(createElement("span" , [] , [] , {}))
+        setTimeout(() => {endSong(songPlaying , indexSong)
+            
+        }, song.duration*1000);
+    }   
+    
+    
+    
+    
+}
+
+
+
+function endSong(songPlaying , indexSong)
+{
+    if (indexSong < player.songs.length)
+    {
+        songPlaying.classList.remove("active")
+        playingSong(player.songs[indexSong+1] , indexSong+1)
+    }
+    if (indexSong === player.songs[songs.length-1])
+        alert("YOU HAVE LISTEN TO ALL OF OUR SONGS")
+}
+
+function generteNewId()
+{
+    let newId =100;
+    while (songIds.indexOf(newId) !== -1)
+    {
+        newId++;       
+    }
+    songIds.push(newId)
+    console.log(songIds)
+    return newId
+}
+
+function fromDisplayToNum(str)
+{
+    if (str === "start")
+    {
+        return 0;
+    }
+    str = str.split(":")
+    console.log(str)
+    return(Number(str[0])*60 + Number(str[1]))
+}
+
+
+function playlistDuration(id)
+{
+  let sum=0;
+  let indexPlaylist = player.playlists.findIndex(i => i.id === id)
+  if (indexPlaylist === -1 )
+  {
+    throw ("WRONG INPUT")
+  }
+  else
+  {
+    for (let songId of player.playlists[indexPlaylist].songs)
+    {
+      sum+= songReturn(songId).duration;
+    }
+    console.log("full duration of the playlist is: " + durationDisplay(sum) + " in seconds its: " + sum);
+    return durationDisplay(sum);
+  }
+}
+
+function songReturn(id)
+{
+  return player.songs[player.songs.findIndex(i => i.id === id)]
 }
