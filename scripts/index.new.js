@@ -57,6 +57,9 @@ function addSong({ title, album, artist, duration, coverArt }) {
      {
         if(targetTag.id.includes("Start"))
             {
+                //const songId = Number(targetTag.id.split("Start")[1]);
+                //const audio = new Audio(player.songs[player.songs.findIndex(i => i.id === songId)].audio)
+                //audio.play()
                 clearInterval(tm)
                 if (targetTag.textContent === "start")
                 {   
@@ -173,35 +176,14 @@ function handleAddSongEvent(event)
      const buttonStp  = createElement("button" , ["stop"] , ["songButton"] , {id: "Stop" + id})
      const buttonRes  = createElement("button" , ["reset"] , ["songButton"] , {id: "Reset" + id})
      const buttons = createElement("span" , [buttonStr , buttonStp ,buttonRes] , [] , {})
-     let children = [button , idEl , titleEl ,  albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
+     let children = [button , titleEl ,  albumEl , "duration: " , durationEl , CoverArtEl, buttonStr , buttonStp ,buttonRes] 
      classes = ["song"]
      const attrs = {id: song.id}
      const newDiv = createElement("div" , children , classes , attrs)
-     
      songs.append(createElement("div", children, classes, attrs))
      songs.addEventListener("click" , songHandle)
  }
 
-/**
- * Creates a playlist DOM element based on a playlist object.
- */
-
-function generateSongs() {
-    // Your code here
-}
-
-/**
- * Inserts all playlists in the player as DOM elements into the playlists list.
- */
-function generatePlaylists() {
-    // Your code here
-}
-
-// Creating the page structure
-generateSongs()
-generatePlaylists()
-
-// Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
 
 
@@ -272,12 +254,14 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     const targetTag = event.target
      if(targetTag.matches("img"))
      {
+         targetTag.style.transition = "0.8s"
          targetTag.style.width = "100px";
-         targetTag.style.border = "0";
+         targetTag.style.border = "none";
+         
+         
      }
- }
- )
-
+ })
+ 
  function runSong(tag)
  {
     const currentTime = tag
@@ -324,9 +308,4 @@ player.playlists.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 
 for (let playlist of player.playlists)
 {
     createPlaylistElement(playlist)
-}
-
-function sortByTitle()
-{
-
 }
