@@ -44,9 +44,9 @@ function addSong({ title, album, artist, duration, coverArt }) {
                 playlist.songs.splice(playlist.songs.indexOf(Number(songDivId)), 1)
                 document.getElementById("playlists").textContent = "";
                 for (let playlist of player.playlists)
-                    {
-                        createPlaylistElement(playlist)
-                    }
+                {
+                    createPlaylistElement(playlist)
+                }
             }
             
         }
@@ -144,7 +144,13 @@ function handleAddSongEvent(event)
     const id = generteNewId()
     const newSong = {id: id , title: title , album: album , artist: artist , duration: duration, coverArt: coverArt}
     player.songs.push(newSong)
-    createSongElement(newSong)
+    player.songs.sort((a,b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+    document.getElementById("songs").textContent = ""
+    for (let song of player.songs)
+    {
+        createSongElement(song)
+    }
+    
 }
 
 /**
