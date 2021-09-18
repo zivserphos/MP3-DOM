@@ -8,6 +8,11 @@
     
 }
 
+.coverImg:hover
+{
+    transition: 0.8;
+}
+
 *
 {
     background-color: aqua;
@@ -22,6 +27,7 @@
 
 .song
 {
+    font-weight: bold;
     display: table-cell;
     text-align: center; 
     border-style: solid;
@@ -35,6 +41,20 @@
     box-shadow: 5px 10px; */
     
 
+}
+
+#playlists
+{
+   
+}
+
+.playlist
+{
+    display: table-cell;
+    text-align: center; 
+    border-style: solid;
+    border-radius: 20px;
+    width: 22%;
 }
 
 

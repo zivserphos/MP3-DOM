@@ -139,3 +139,27 @@ function fromDisplayToNum(str)
     return(Number(str[0])*60 + Number(str[1]))
 }
 
+
+function playlistDuration(id)
+{
+  let sum=0;
+  let indexPlaylist = player.playlists.findIndex(i => i.id === id)
+  if (indexPlaylist === -1 )
+  {
+    throw ("WRONG INPUT")
+  }
+  else
+  {
+    for (let songId of player.playlists[indexPlaylist].songs)
+    {
+      sum+= songReturn(songId).duration;
+    }
+    console.log("full duration of the playlist is: " + durationDisplay(sum) + " in seconds its: " + sum);
+    return durationDisplay(sum);
+  }
+}
+
+function songReturn(id)
+{
+  return player.songs[player.songs.findIndex(i => i.id === id)]
+}

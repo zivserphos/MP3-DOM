@@ -1,9 +1,4 @@
-/**
- * Plays a song from the player.
- * Playing a song means changing the visual indication of the currently playing song.
- *
- * @param {Number} songId - the ID of the song to play
- */
+document.getElementById("songs").classList.add("songList")
 
 function playSong(songId) {
     // Your code here
@@ -41,6 +36,22 @@ function addSong({ title, album, artist, duration, coverArt }) {
             const toRemove = document.getElementById(targetTag.closest("div").id)
             toRemove.remove()
         }
+        const songDivId = event.target.closest("div").id
+        for (let playlist of player.playlists)
+        {
+            if(playlist.songs.includes(Number(songDivId)))
+            {
+                playlist.songs.splice(playlist.songs.indexOf(Number(songDivId)), 1)
+                document.getElementById("playlists").textContent = "";
+                for (let playlist of player.playlists)
+                    {
+                        createPlaylistElement(playlist)
+                    }
+            }
+            
+        }
+        
+
      }
      else if (targetTag.classList.contains("songButton"))
      {
@@ -97,9 +108,6 @@ function addSong({ title, album, artist, duration, coverArt }) {
   * @param {Array} classes - the class list of the new element
   * @param {Object} attributes - the attributes for the new element
   */
- 
- 
- // You can write more code below this line
  
  document.addEventListener("mouseover" , function(event)
  {
@@ -171,13 +179,6 @@ function handleAddSongEvent(event)
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
-function createPlaylistElement({ id, name, songs }) {
-    const children = []
-    const classes = []
-    const attrs = {}
-    const eventListeners = {}
-    return createElement("div", children, classes, attrs, eventListeners)
-}
 
 function generateSongs() {
     // Your code here
@@ -226,20 +227,22 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
      return el
  }
  
-
-
- 
  /**
   * Creates a playlist DOM element based on a playlist object.
   */
- function createPlaylistElement({ id, name, songs }) {
+ function createPlaylistElement({ id, name, songs }) 
+ {
      const idPl = createElement("div" , ["playlist id: " , id])
-     const children = []
-     const classes = []
+     const playName = createElement("div" , ["Name: " + name])
+     const numberOfSongs = createElement("div" , ["number of songs: " + songs.length])
+     const playlistDur = createElement("div" , ["Playlist Duration: " + playlistDuration(id)])
+     const children = [idPl , playName , numberOfSongs , playlistDur]
+     const classes = ["playlist"]
      const attrs = {}
-     return createElement("div", children, classes, attrs)
+     document.getElementById("playlists").append(createElement("div", children, classes, attrs))
  }
 
+ player.songs.sort((a,b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
  for (let song of player.songs)
  {
      
@@ -276,7 +279,6 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     if (time < tag.value)
     {
         time+=1;
-        console.log(time)
     }
     else
     {
@@ -292,9 +294,6 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
     }
  }
 
- document.getElementById("songs").classList.add("songList")
-
- 
  function pickColor(durationEl , duration)
     {
         if (duration < 120)
@@ -310,3 +309,18 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
             durationEl.style.backgroundColor = "red"
         }
     }
+
+
+linebreak = document.createElement("br");
+document.getElementById("br").innerHTML = "<br><br><br>"
+document.getElementById("playlists").appendChild(linebreak,linebreak,linebreak)
+player.playlists.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+for (let playlist of player.playlists)
+{
+    createPlaylistElement(playlist)
+}
+
+function sortByTitle()
+{
+
+}
